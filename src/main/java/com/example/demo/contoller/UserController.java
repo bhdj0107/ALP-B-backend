@@ -128,6 +128,24 @@ public class UserController {
         }
     }
 
+    @GetMapping("info")
+    public ResponseEntity<String> getInfo(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userID");
+        if (userId == null) {
+            return ResponseEntity.status(401).body("로그인 상태가 아닙니다.");
+        } else {
+            User user = userService.findById(userId);
+
+            String email = user.getEmail();
+            String name = user.getName();
+            String phone = user.getPhone();
+            LocalDateTime signupDate = user.getSignupDate();
+
+            return ResponseEntity.ok("email: " + email + "\nname: " + name + "\nphone: " + phone + "\nsignupDate: " + signupDate);
+        }
+    }
+
     @PostMapping("info")
     public ResponseEntity<String> info(@RequestBody UserSignupDto userSignupDto, HttpServletRequest request) throws NoSuchAlgorithmException {
         HttpSession session = request.getSession();
@@ -156,6 +174,7 @@ public class UserController {
             return ResponseEntity.ok("회원탈퇴 성공");
         }
     }
+
     
 }
 
