@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -131,7 +131,7 @@ public class UserController {
     @GetMapping("info")
     public ResponseEntity<String> getInfo(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Long userId = (Long) session.getAttribute("userID");
+        Long userId = (Long) session.getAttribute("userID");    
         if (userId == null) {
             return ResponseEntity.status(401).body("로그인 상태가 아닙니다.");
         } else {
