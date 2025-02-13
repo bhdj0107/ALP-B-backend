@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -162,7 +163,7 @@ public class UserController {
         }
     }
     
-    @GetMapping("resign")
+    @DeleteMapping("resign")
     public ResponseEntity<String> resign(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userID");
