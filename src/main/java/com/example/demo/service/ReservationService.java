@@ -41,6 +41,11 @@ public class ReservationService {
             throw new RuntimeException("승인되지 않은 펫시터입니다.");
         }
 
+        // 선택된 서비스가 하나 이상인지 확인
+        if (request.getServices() == null || request.getServices().isEmpty()) {
+            throw new IllegalArgumentException("하나 이상의 서비스를 선택해주세요.");
+        }
+
         // 선택된 서비스가 펫시터가 제공하는 서비스에 포함되는지 확인
         if (!petsitter.getServices().containsAll(request.getServices())) {
             throw new IllegalArgumentException("선택한 서비스 중 펫시터가 제공하지 않는 서비스가 있습니다.");
